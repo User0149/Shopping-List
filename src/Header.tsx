@@ -4,7 +4,7 @@ function SearchBar() {
     );
 }
 
-function AddItemButton({setShowAddItemBox}) {
+function AddItemButton({setShowAddItemBox}: {setShowAddItemBox: any}) {
     return (
         <div className="mt-4 mb-4">
             <span className="text-blue-800 underline cursor-pointer" onClick={() => setShowAddItemBox(true)}>
@@ -14,7 +14,7 @@ function AddItemButton({setShowAddItemBox}) {
     );
 }
 
-export default function Header({setShowAddItemBox}) {
+export default function Header({setShowAddItemBox}: {setShowAddItemBox: any}) {
     return (
         <>
             <SearchBar/>

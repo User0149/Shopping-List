@@ -1,21 +1,22 @@
 import { useState } from "react";
 import "./App.css";
 
+import type { itemType } from "./types.ts"
 import Header from "./Header.tsx";
 import ItemsList from "./ItemsList.tsx";
 import AddItemBox from "./AddItemBox.tsx";
 
 export default function App() {
-    const [items, setItems] = useState<string | null>(localStorage.getItem("items"));
+    const [items, setItems] = useState<Array<itemType> | null>(localStorage.getItem("items") ? JSON.parse(localStorage.getItem("items") as string) : null);
     const [showAddItemBox, setShowAddItemBox] = useState<boolean>(false);
     
-    const setItemsAndUpdateLocalStorage = (stringifiedObj: string) => {
-        localStorage.setItem("items", stringifiedObj);
-        setItems(stringifiedObj);
+    const setItemsAndUpdateLocalStorage = (itemsArray: Array<itemType>) => {
+        localStorage.setItem("items", JSON.stringify(itemsArray));
+        setItems(itemsArray);
     };
 
     if (items === null) {
-        setItemsAndUpdateLocalStorage(JSON.stringify([]));
+        setItemsAndUpdateLocalStorage([]);
     }
 
     return (
@@ -25,7 +26,7 @@ export default function App() {
 
             <ItemsList items={items}/>
 
-            <AddItemBox showAddItemBox={showAddItemBox} setShowAddItemBox={setShowAddItemBox} items={items} setItems={setItems}/>
+            <AddItemBox showAddItemBox={showAddItemBox} setShowAddItemBox={setShowAddItemBox} items={items} setItems={setItemsAndUpdateLocalStorage}/>
         </>
     )
 }
