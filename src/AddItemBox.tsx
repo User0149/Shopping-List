@@ -12,6 +12,8 @@ export default function AddItemBox({showAddItemBox, setShowAddItemBox, items, se
     const [compQuantity, setCompQuantity] = useState<string>("100");
     const [compPrefix, setCompPrefix] = useState<string>("");
 
+    const [invalidItem, setInvalidItem] = useState<boolean>(false);
+
     return (
         <div id="addItemBoxBackground" className="modal-background" onClick={
             (e) => {
@@ -24,7 +26,6 @@ export default function AddItemBox({showAddItemBox, setShowAddItemBox, items, se
                 <span className="modal-close-button">&times;&nbsp;</span>
                 <h2>Add an item</h2>
                 <form id="add-item-form" onSubmit={(event) => {
-                    // TODO: check duplicate
                     event.preventDefault();
                     const form = document.getElementById("add-item-form");
                     const formData = Object.fromEntries(new FormData(form as HTMLFormElement).entries());
@@ -40,16 +41,39 @@ export default function AddItemBox({showAddItemBox, setShowAddItemBox, items, se
                         compPrefix: formData["comp-prefix"] as string,
                         compQuantity: Number(formData["comp-quantity"])
                     };
-
-                    items?.push(newItem);
-                    setItems(items);
                     
-                    setShowAddItemBox(false);
+                    if (items !== null) {
+                        let invalidNewItem: boolean = false;
+                        for (const i of items) {
+                            if (i.itemName === newItem.itemName) {
+                                invalidNewItem = true;
+                            }
+                        }
+                        
+                        if (!invalidNewItem) {
+                            items?.push(newItem);
+                            setItems(items);
+                            setShowAddItemBox(false);
+                        }
+                        else {
+                            setInvalidItem(true);
+                        }
+                    }
+                    else {
+                        console.log("Error: items is null");
+                    }
+                    
                 }}>
                     <div className="mb-1 text-lg font-bold">
                         <label htmlFor="item-name">Item name:&nbsp;</label>
                         <input id="item-name" type="text" name="item-name" className="border rounded" required></input>
                     </div>
+
+                    {
+                        invalidItem && (<div className="text-[red] text-sm">
+                            There is an item with the same name.
+                        </div>)
+                    }
 
                     <div className="mb-1">
                         <label htmlFor="selected">Selected&nbsp;</label>
