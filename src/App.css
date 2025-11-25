@@ -38,3 +38,7 @@
     font-size: xx-large;
     color: lightgray;
 }
+
+#items-table th, td{
+    padding: 5px;
+}

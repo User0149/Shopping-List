@@ -30,9 +30,11 @@ h1 {
 h2 {
     font-size: x-large;
 }
-th{
-    border: 1px solid black;
+
+tbody tr:nth-child(even) {
+    background-color: rgb(230, 230, 230);
 }
-td {
-    padding: 5px;
+
+tbody tr:hover {
+    background-color: lightgray;
 }

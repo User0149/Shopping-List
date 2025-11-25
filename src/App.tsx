@@ -9,6 +9,8 @@ import AddItemBox from "./AddItemBox.tsx";
 export default function App() {
     const [items, setItems] = useState<Array<itemType> | null>(localStorage.getItem("items") ? JSON.parse(localStorage.getItem("items") as string) : null);
     const [showAddItemBox, setShowAddItemBox] = useState<boolean>(false);
+
+    const [searchQuery, setSearchQuery] = useState<string>("");
     
     const setItemsAndUpdateLocalStorage = (itemsArray: Array<itemType>) => {
         localStorage.setItem("items", JSON.stringify(itemsArray));
@@ -22,9 +24,9 @@ export default function App() {
     return (
         <>
             <h1>Shopping List</h1>
-            <Header setShowAddItemBox={setShowAddItemBox}/>
+            <Header setShowAddItemBox={setShowAddItemBox} setSearchQuery={setSearchQuery}/>
 
-            <ItemsList items={items}/>
+            <ItemsList items={items} searchQuery={searchQuery}/>
 
             <AddItemBox showAddItemBox={showAddItemBox} setShowAddItemBox={setShowAddItemBox} items={items} setItems={setItemsAndUpdateLocalStorage}/>
         </>
