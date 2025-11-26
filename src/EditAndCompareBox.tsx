@@ -4,8 +4,8 @@ import { pricePerQty } from "./functions.ts";
 
 function CompareBox({editMode, selectedItem}: {editMode: boolean, selectedItem: itemType | null}) {
     const [otherPrice, setOtherPrice] = useState<string>(selectedItem!== null ? String(selectedItem.storePrice) : "");
-    const [otherQuantity, setOtherQuantity] = useState<string>(selectedItem!== null ? String(selectedItem.compQuantity) : "");
-    const [otherPrefix, setOtherPrefix] = useState<string>(selectedItem!== null ? selectedItem.compPrefix : "");
+    const [otherQuantity, setOtherQuantity] = useState<string>(selectedItem!== null ? String(selectedItem.storeQuantity) : "");
+    const [otherPrefix, setOtherPrefix] = useState<string>(selectedItem!== null ? selectedItem.storePrefix : "");
     
     if (selectedItem === null || editMode) return <></>;
 
@@ -34,13 +34,13 @@ function CompareBox({editMode, selectedItem}: {editMode: boolean, selectedItem: 
                 {selectedItem.unit}
             </div>
             <div className={otherPricePerQty < storePricePerQty ? "text-green-500" : (otherPricePerQty > storePricePerQty ? "text-red-500" : "text-yellow-500")}>
-                = {otherPricePerQty} / {selectedItem.compQuantity}&nbsp;{selectedItem.compPrefix}{selectedItem.unit}
+                = ${otherPricePerQty.toFixed(2)} / {selectedItem.compQuantity}&nbsp;{selectedItem.compPrefix}{selectedItem.unit}
             </div>
         </div>
     );
 }
 
-function EditBox({editMode, selectedItem, items, setItems, setShowEditAndCompareBox}: {editMode: boolean, selectedItem: itemType | null, items: Array<itemType> | null, setItems: (itemsArray: itemType[]) => void, setShowEditAndCompareBox: setState<boolean>}) {
+function EditBox({editMode, selectedItem, items, setItems, setShowEditAndCompareBox, invalidItem, setInvalidItem}: {editMode: boolean, selectedItem: itemType | null, items: Array<itemType> | null, setItems: (itemsArray: itemType[]) => void, setShowEditAndCompareBox: setState<boolean>, invalidItem: boolean, setInvalidItem: setState<boolean>}) {
     const [itemName, setItemName] = useState<string>(selectedItem!== null ? selectedItem.itemName : "");
     const [selected, setSelected] = useState<boolean>(selectedItem!== null ? selectedItem.selected : false);
     const [unit, setUnit] = useState<string>(selectedItem!== null ? selectedItem.unit : "");
@@ -50,8 +50,6 @@ function EditBox({editMode, selectedItem, items, setItems, setShowEditAndCompare
     const [storePrefix, setStorePrefix] = useState<string>(selectedItem!== null ? selectedItem.storePrefix : "");
     const [compQuantity, setCompQuantity] = useState<string>(selectedItem!== null ? String(selectedItem.compQuantity) : "");
     const [compPrefix, setCompPrefix] = useState<string>(selectedItem!== null ? selectedItem.compPrefix : "");
-
-    const [invalidItem, setInvalidItem] = useState<boolean>(false);
 
     if (selectedItem === null || !editMode) return <></>;
 
@@ -163,9 +161,7 @@ function EditBox({editMode, selectedItem, items, setItems, setShowEditAndCompare
     );
 }
 
-export default function EditAndCompareBox({selectedItem, items, setItems, showEditAndCompareBox, setShowEditAndCompareBox}: {selectedItem: itemType | null, items: Array<itemType> | null, setItems: (itemsArray: itemType[]) => void, showEditAndCompareBox: boolean, setShowEditAndCompareBox: setState<boolean>}) {
-    const [editMode, setEditMode] = useState<boolean>(false);
-
+export default function EditAndCompareBox({selectedItem, items, setItems, showEditAndCompareBox, setShowEditAndCompareBox, editMode, setEditMode, invalidItem, setInvalidItem}: {selectedItem: itemType | null, items: Array<itemType> | null, setItems: (itemsArray: itemType[]) => void, showEditAndCompareBox: boolean, setShowEditAndCompareBox: setState<boolean>, editMode: boolean, setEditMode: setState<boolean>, invalidItem: boolean, setInvalidItem: setState<boolean>}) {
     if (!showEditAndCompareBox) return <></>;
 
     return (
@@ -183,7 +179,7 @@ export default function EditAndCompareBox({selectedItem, items, setItems, showEd
                     <div className={`hover:bg-[lightgray] cursor-pointer p-2 ${editMode ? "bg-[rgb(220,220,220)]" : ""}`} onClick={() => setEditMode(true)}>Edit</div>
                 </div>
                 <CompareBox editMode={editMode} selectedItem={selectedItem}/>
-                <EditBox editMode={editMode} selectedItem={selectedItem} items={items} setItems={setItems} setShowEditAndCompareBox={setShowEditAndCompareBox}/>
+                <EditBox editMode={editMode} selectedItem={selectedItem} items={items} setItems={setItems} setShowEditAndCompareBox={setShowEditAndCompareBox} invalidItem={invalidItem} setInvalidItem={setInvalidItem}/>
             </div>
         </div>
     );

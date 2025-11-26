@@ -2,15 +2,13 @@ import type { itemType, setState } from "./types.ts";
 import { useState } from "react";
 import { pricePerQty } from "./functions.ts";
 
-export default function AddItemBox({showAddItemBox, setShowAddItemBox, items, setItems}: {showAddItemBox: boolean, setShowAddItemBox: setState<boolean>, items: Array<itemType> | null, setItems: (itemsArray: itemType[]) => void}) {
+export default function AddItemBox({showAddItemBox, setShowAddItemBox, invalidItem, setInvalidItem, items, setItems}: {showAddItemBox: boolean, setShowAddItemBox: setState<boolean>, invalidItem: boolean, setInvalidItem: setState<boolean>, items: Array<itemType> | null, setItems: (itemsArray: itemType[]) => void}) {
     const [unit, setUnit] = useState<string>("g");
     const [storePrice, setStorePrice] = useState<string>("5");
     const [storeQuantity, setStoreQuantity] = useState<string>("1");
     const [storePrefix, setStorePrefix] = useState<string>("k");
     const [compQuantity, setCompQuantity] = useState<string>("100");
     const [compPrefix, setCompPrefix] = useState<string>("");
-
-    const [invalidItem, setInvalidItem] = useState<boolean>(false);
 
     if (!showAddItemBox) return <></>;
     return (

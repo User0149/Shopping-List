@@ -6,5 +6,5 @@ export function pricePerQty(price: number, quantity: number, prefix: string, com
 
     const wanted_quantity = compQuantity * (multipliers[compPrefix as prefixType] ?? NaN);
 
-    return String(base_ppq * wanted_quantity);
+    return (base_ppq * wanted_quantity).toFixed(2);
 }

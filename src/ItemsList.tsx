@@ -1,13 +1,13 @@
-import type { itemType } from "./types";
+import type { itemType, setState } from "./types";
 import { pricePerQty } from "./functions.ts";
 
-export default function ItemsList({items, setItems, searchQuery, showEditAndCompare}: {items: Array<itemType> | null, setItems: (itemsArray: itemType[]) => void, searchQuery: string, showEditAndCompare: (item: itemType) => void}) {
+export default function ItemsList({items, setItems, searchQuery, showEditAndCompare, setInvalidItem, selectedOnly, setSelectedOnly}: {items: Array<itemType> | null, setItems: (itemsArray: itemType[]) => void, searchQuery: string, showEditAndCompare: (item: itemType) => void, setInvalidItem: setState<boolean>, selectedOnly: boolean, setSelectedOnly: setState<boolean>}) {
     return (
-        <>
+        <div className="overflow-auto no-scrollbar h-[calc(100%-156px)]">
             <table id="items-table" className="w-[calc(100%-8*var(--spacing))]">
-                <thead>
-                    <tr className="border-b border-black">
-                        <th className="w-[30px] text-left"></th>
+                <thead className="sticky border-b border-black">
+                    <tr>
+                        <th className="w-[30px] text-left"><input type="checkbox" checked={selectedOnly} onChange={() => setSelectedOnly(!selectedOnly)}></input></th>
                         <th className="w-[calc(0.8*(100%-530px))] text-left">Item</th>
                         <th className="w-[250px] text-left">Value</th>
                         <th className="w-[calc(0.2*(100%-530px))] text-left">Store</th>
@@ -18,11 +18,14 @@ export default function ItemsList({items, setItems, searchQuery, showEditAndComp
                     {
                         (items !== null) &&
                         (items.filter((item: itemType) => {
-                            return item.itemName.toLowerCase().includes(searchQuery);
+                            return item.itemName.toLowerCase().includes(searchQuery.toLowerCase());
+                        }).filter((item: itemType) => {
+                            return !selectedOnly || item.selected;
                         }).map((item: itemType) => {
                             return (
                                 <tr key={item.itemName} className="cursor-pointer" onClick={(event) => {
                                     if ((event.target as HTMLElement).tagName !== "INPUT") {
+                                        setInvalidItem(false);
                                         showEditAndCompare(item);
                                     }
                                 }}>
@@ -35,7 +38,7 @@ export default function ItemsList({items, setItems, searchQuery, showEditAndComp
                                     <td>{item.itemName}</td>
                                     <td>{"$" + pricePerQty(item.storePrice, item.storeQuantity, item.storePrefix, item.compQuantity, item.compPrefix) + " / " + String(item.compQuantity) + " " + String(item.compPrefix) + String(item.unit)}</td>
                                     <td>{item.store}</td>
-                                    <td>{"$" + String(item.storePrice) + " @ " + String(item.storeQuantity) + " " + String(item.storePrefix) + String(item.unit)}</td>
+                                    <td>{"$" + item.storePrice.toFixed(2) + " @ " + String(item.storeQuantity) + " " + String(item.storePrefix) + String(item.unit)}</td>
                                 </tr>
                             )
                         }))
@@ -45,9 +48,11 @@ export default function ItemsList({items, setItems, searchQuery, showEditAndComp
             {
                 (items === null || items.filter((item: itemType) => {
                     return item.itemName.toLowerCase().includes(searchQuery);
+                }).filter((item: itemType) => {
+                    return !selectedOnly || item.selected;
                 }).length === 0) && 
                 <div className="text-center mt-2">No items found</div>
             }
-        </>
+        </div>
     );
 }
