@@ -173,7 +173,7 @@ export default function EditAndCompareBox({selectedItem, items, setItems, showEd
             }
         }>
             <div className="modal-box">
-                <span className="modal-close-button">&times;&nbsp;</span>
+                <span className="modal-close-button"  onClick={() => setShowEditAndCompareBox(false)}>&times;&nbsp;</span>
                 <div className="flex mb-5">
                     <div className={`hover:bg-[lightgray] cursor-pointer p-2 ${!editMode ? "bg-[rgb(220,220,220)]" : ""}`} onClick={() => setEditMode(false)}>Compare</div>
                     <div className={`hover:bg-[lightgray] cursor-pointer p-2 ${editMode ? "bg-[rgb(220,220,220)]" : ""}`} onClick={() => setEditMode(true)}>Edit</div>

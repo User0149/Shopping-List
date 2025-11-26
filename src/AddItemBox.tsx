@@ -20,7 +20,7 @@ export default function AddItemBox({showAddItemBox, setShowAddItemBox, invalidIt
             }
         }>
             <div className="modal-box">
-                <span className="modal-close-button">&times;&nbsp;</span>
+                <span className="modal-close-button" onClick={() => setShowAddItemBox(false)}>&times;&nbsp;</span>
                 <h2>Add an item</h2>
                 <form id="add-item-form" onSubmit={(event) => {
                     event.preventDefault();
