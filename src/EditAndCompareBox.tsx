@@ -1,14 +1,13 @@
 import { useState } from "react";
-import type { itemType } from "./types.ts";
+import type { itemType, setState } from "./types.ts";
 import { pricePerQty } from "./functions.ts";
 
 function CompareBox({editMode, selectedItem}: {editMode: boolean, selectedItem: itemType | null}) {
-    if (selectedItem === null || editMode) return <></>;
-
-    const [otherPrice, setOtherPrice] = useState<string>(String(selectedItem.storePrice));
-    const [otherQuantity, setOtherQuantity] = useState<string>(String(selectedItem.compQuantity));
-    const [otherPrefix, setOtherPrefix] = useState<string>(selectedItem.compPrefix);
+    const [otherPrice, setOtherPrice] = useState<string>(selectedItem!== null ? String(selectedItem.storePrice) : "");
+    const [otherQuantity, setOtherQuantity] = useState<string>(selectedItem!== null ? String(selectedItem.compQuantity) : "");
+    const [otherPrefix, setOtherPrefix] = useState<string>(selectedItem!== null ? selectedItem.compPrefix : "");
     
+    if (selectedItem === null || editMode) return <></>;
     return (
         <div className="text-2xl">
             <div>
@@ -37,20 +36,20 @@ function CompareBox({editMode, selectedItem}: {editMode: boolean, selectedItem: 
     );
 }
 
-function EditBox({editMode, selectedItem, items, setItems, setShowEditAndCompareBox}: {editMode: boolean, selectedItem: itemType | null, items: Array<itemType> | null, setItems: any, setShowEditAndCompareBox: any}) {
-    if (selectedItem === null || !editMode) return <></>;
-
-    const [itemName, setItemName] = useState<string>(selectedItem.itemName);
-    const [selected, setSelected] = useState<boolean>(selectedItem.selected);
-    const [unit, setUnit] = useState<string>(selectedItem.unit);
-    const [store, setStore] = useState<string>(selectedItem.store);
-    const [storePrice, setStorePrice] = useState<string>(String(selectedItem.storePrice));
-    const [storeQuantity, setStoreQuantity] = useState<string>(String(selectedItem.storeQuantity));
-    const [storePrefix, setStorePrefix] = useState<string>(selectedItem.storePrefix);
-    const [compQuantity, setCompQuantity] = useState<string>(String(selectedItem.compQuantity));
-    const [compPrefix, setCompPrefix] = useState<string>(selectedItem.compPrefix);
+function EditBox({editMode, selectedItem, items, setItems, setShowEditAndCompareBox}: {editMode: boolean, selectedItem: itemType | null, items: Array<itemType> | null, setItems: (itemsArray: itemType[]) => void, setShowEditAndCompareBox: setState<boolean>}) {
+    const [itemName, setItemName] = useState<string>(selectedItem!== null ? selectedItem.itemName : "");
+    const [selected, setSelected] = useState<boolean>(selectedItem!== null ? selectedItem.selected : false);
+    const [unit, setUnit] = useState<string>(selectedItem!== null ? selectedItem.unit : "");
+    const [store, setStore] = useState<string>(selectedItem!== null ? selectedItem.store : "");
+    const [storePrice, setStorePrice] = useState<string>(selectedItem!== null ? String(selectedItem.storePrice) : "");
+    const [storeQuantity, setStoreQuantity] = useState<string>(selectedItem!== null ? String(selectedItem.storeQuantity) : "");
+    const [storePrefix, setStorePrefix] = useState<string>(selectedItem!== null ? selectedItem.storePrefix : "");
+    const [compQuantity, setCompQuantity] = useState<string>(selectedItem!== null ? String(selectedItem.compQuantity) : "");
+    const [compPrefix, setCompPrefix] = useState<string>(selectedItem!== null ? selectedItem.compPrefix : "");
 
     const [invalidItem, setInvalidItem] = useState<boolean>(false);
+
+    if (selectedItem === null || !editMode) return <></>;
 
     return (
         <form id="edit-item-form" onSubmit={(event) => {
@@ -160,10 +159,10 @@ function EditBox({editMode, selectedItem, items, setItems, setShowEditAndCompare
     );
 }
 
-export default function EditAndCompareBox({selectedItem, items, setItems, showEditAndCompareBox, setShowEditAndCompareBox}: {selectedItem: itemType | null, items: Array<itemType> | null, setItems: any, showEditAndCompareBox: boolean, setShowEditAndCompareBox: any}) {
-    if (!showEditAndCompareBox) return <></>;
-
+export default function EditAndCompareBox({selectedItem, items, setItems, showEditAndCompareBox, setShowEditAndCompareBox}: {selectedItem: itemType | null, items: Array<itemType> | null, setItems: (itemsArray: itemType[]) => void, showEditAndCompareBox: boolean, setShowEditAndCompareBox: setState<boolean>}) {
     const [editMode, setEditMode] = useState<boolean>(false);
+
+    if (!showEditAndCompareBox) return <></>;
 
     return (
         <div id="editAndCompareBoxBackground" className="modal-background" onClick={

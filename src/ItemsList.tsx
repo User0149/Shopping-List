@@ -1,7 +1,7 @@
 import type { itemType } from "./types";
 import { pricePerQty } from "./functions.ts";
 
-export default function ItemsList({items, setItems, searchQuery, showEditAndCompare}: {items: Array<itemType> | null, setItems: any, searchQuery: string, showEditAndCompare: any}) {
+export default function ItemsList({items, setItems, searchQuery, showEditAndCompare}: {items: Array<itemType> | null, setItems: (itemsArray: itemType[]) => void, searchQuery: string, showEditAndCompare: (item: itemType) => void}) {
     return (
         <>
             <table id="items-table" className="w-[calc(100%-8*var(--spacing))]">

@@ -1,10 +1,8 @@
-import type { itemType } from "./types.ts";
+import type { itemType, setState } from "./types.ts";
 import { useState } from "react";
 import { pricePerQty } from "./functions.ts";
 
-export default function AddItemBox({showAddItemBox, setShowAddItemBox, items, setItems}: {showAddItemBox: boolean, setShowAddItemBox: any, items: Array<itemType> | null, setItems: any}) {
-    if (!showAddItemBox) return <></>;
-
+export default function AddItemBox({showAddItemBox, setShowAddItemBox, items, setItems}: {showAddItemBox: boolean, setShowAddItemBox: setState<boolean>, items: Array<itemType> | null, setItems: (itemsArray: itemType[]) => void}) {
     const [unit, setUnit] = useState<string>("g");
     const [storePrice, setStorePrice] = useState<string>("5");
     const [storeQuantity, setStoreQuantity] = useState<string>("1");
@@ -14,6 +12,7 @@ export default function AddItemBox({showAddItemBox, setShowAddItemBox, items, se
 
     const [invalidItem, setInvalidItem] = useState<boolean>(false);
 
+    if (!showAddItemBox) return <></>;
     return (
         <div id="addItemBoxBackground" className="modal-background" onClick={
             (e) => {

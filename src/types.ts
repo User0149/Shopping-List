@@ -4,3 +4,4 @@ export type itemType = {
     unit: string, 
     storePrefix: string, storePrice: number, storeQuantity: number,  compPrefix: string, compQuantity: number
 };
+export type setState<T> = React.Dispatch<React.SetStateAction<T>>;

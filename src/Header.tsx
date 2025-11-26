@@ -1,4 +1,6 @@
-function SearchBar({setSearchQuery}: {setSearchQuery: any}) {
+import type { setState } from "./types";
+
+function SearchBar({setSearchQuery}: {setSearchQuery: setState<string>}) {
     return (
         <input id="search-bar" className="search_bar block m-auto text-xl p-3" placeholder="Search for an item" onInput={
             () => {
@@ -8,7 +10,7 @@ function SearchBar({setSearchQuery}: {setSearchQuery: any}) {
     );
 }
 
-function AddItemButton({setShowAddItemBox}: {setShowAddItemBox: any}) {
+function AddItemButton({setShowAddItemBox}: {setShowAddItemBox: setState<boolean>}) {
     return (
         <div className="mt-4 mb-4">
             <span className="text-blue-800 underline cursor-pointer" onClick={() => setShowAddItemBox(true)}>
@@ -18,7 +20,7 @@ function AddItemButton({setShowAddItemBox}: {setShowAddItemBox: any}) {
     );
 }
 
-export default function Header({setShowAddItemBox, setSearchQuery}: {setShowAddItemBox: any, setSearchQuery: any}) {
+export default function Header({setShowAddItemBox, setSearchQuery}: {setShowAddItemBox: setState<boolean>, setSearchQuery: setState<string>}) {
     return (
         <>
             <SearchBar setSearchQuery={setSearchQuery}/>
