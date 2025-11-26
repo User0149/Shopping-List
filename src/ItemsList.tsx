@@ -1,7 +1,7 @@
 import type { itemType } from "./types";
 import { pricePerQty } from "./functions.ts";
 
-export default function ItemsList({items, searchQuery}: {items: Array<itemType> | null, searchQuery: string}) {
+export default function ItemsList({items, searchQuery, showEditAndCompare}: {items: Array<itemType> | null, searchQuery: string, showEditAndCompare: any}) {
     return (
         <>
             <table id="items-table" className="w-[calc(100%-8*var(--spacing))]">
@@ -21,7 +21,7 @@ export default function ItemsList({items, searchQuery}: {items: Array<itemType> 
                             return item.itemName.toLowerCase().includes(searchQuery);
                         }).map((item: itemType) => {
                             return (
-                                <tr key={item.itemName}>
+                                <tr key={item.itemName} className="cursor-pointer" onClick={() => showEditAndCompare(item)}>
                                     <td>{Number(item.selected)}</td>
                                     <td>{item.itemName}</td>
                                     <td>{"$" + pricePerQty(item.storePrice, item.storeQuantity, item.storePrefix, item.compQuantity, item.compPrefix) + " / " + String(item.compQuantity) + " " + String(item.compPrefix) + String(item.unit)}</td>

@@ -62,11 +62,10 @@ export default function AddItemBox({showAddItemBox, setShowAddItemBox, items, se
                     else {
                         console.log("Error: items is null");
                     }
-                    
                 }}>
                     <div className="mb-1 text-lg font-bold">
-                        <label htmlFor="item-name">Item name:&nbsp;</label>
-                        <input id="item-name" type="text" name="item-name" className="border rounded" required></input>
+                        <label htmlFor="add-item-name">Item name:&nbsp;</label>
+                        <input id="add-item-name" type="text" name="item-name" className="border rounded" required></input>
                     </div>
 
                     {
@@ -76,28 +75,28 @@ export default function AddItemBox({showAddItemBox, setShowAddItemBox, items, se
                     }
 
                     <div className="mb-1">
-                        <label htmlFor="selected">Selected&nbsp;</label>
-                        <input id="selected" type="checkbox" name="selected"></input>
+                        <label htmlFor="add-selected">Selected&nbsp;</label>
+                        <input id="add-selected" type="checkbox" name="selected"></input>
                     </div>
                     <div className="mb-1">
-                        <label htmlFor="unit">Base unit:&nbsp;</label>
-                        <input id="unit" type="text" name="unit" className="border rounded w-10" value={unit} onInput={() => {setUnit((document.getElementById("unit") as HTMLInputElement)?.value)}}></input>
+                        <label htmlFor="add-unit">Base unit:&nbsp;</label>
+                        <input id="add-unit" type="text" name="unit" className="border rounded w-10" value={unit} onInput={() => {setUnit((document.getElementById("add-unit") as HTMLInputElement)?.value)}}></input>
                     </div>
 
                     <br></br>
 
                     <div className="mb-1 text-lg">
-                        <label htmlFor="store">Store:&nbsp;</label>
-                        <input id="store" type="text" name="store" className="border rounded"></input>
+                        <label htmlFor="add-store">Store:&nbsp;</label>
+                        <input id="add-store" type="text" name="store" className="border rounded"></input>
                     </div>
                     <div>Price/quantity at store:&nbsp;</div>
                     <div className="mb-1">
                         $
-                        <input id="store-price" type="text" name="store-price" className="border rounded w-12" value={storePrice} onInput={() => {setStorePrice((document.getElementById("store-price") as HTMLInputElement)?.value)}}></input>
+                        <input id="add-store-price" type="text" name="store-price" className="border rounded w-12" value={storePrice} onInput={() => {setStorePrice((document.getElementById("add-store-price") as HTMLInputElement)?.value)}}></input>
                         &nbsp;@&nbsp;
-                        <input id="store-quantity" type="text" name="store-quantity" className="border rounded w-10" value={storeQuantity} onInput={() => {setStoreQuantity((document.getElementById("store-quantity") as HTMLInputElement)?.value)}}></input>
+                        <input id="add-store-quantity" type="text" name="store-quantity" className="border rounded w-10" value={storeQuantity} onInput={() => {setStoreQuantity((document.getElementById("add-store-quantity") as HTMLInputElement)?.value)}}></input>
                         &nbsp;
-                        <input id="store-prefix" type="text" name="store-prefix" className="border rounded w-10 text-right" value={storePrefix} onInput={() => {setStorePrefix((document.getElementById("store-prefix") as HTMLInputElement)?.value)}}></input>
+                        <input id="add-store-prefix" type="text" name="store-prefix" className="border rounded w-10 text-right" value={storePrefix} onInput={() => {setStorePrefix((document.getElementById("add-store-prefix") as HTMLInputElement)?.value)}}></input>
                         {unit}
                     </div>
 
@@ -108,9 +107,9 @@ export default function AddItemBox({showAddItemBox, setShowAddItemBox, items, se
                             $
                             <span>{pricePerQty(Number(storePrice), Number(storeQuantity), storePrefix, Number(compQuantity), compPrefix)}</span>
                             /
-                            <input id="comp-quantity" type="text" name="comp-quantity" className="border rounded w-10" value={compQuantity} onInput={() => {setCompQuantity((document.getElementById("comp-quantity") as HTMLInputElement)?.value)}}></input>
+                            <input id="add-comp-quantity" type="text" name="comp-quantity" className="border rounded w-10" value={compQuantity} onInput={() => {setCompQuantity((document.getElementById("add-comp-quantity") as HTMLInputElement)?.value)}}></input>
                             &nbsp;
-                            <input id="comp-prefix" type="text" name="comp-prefix" className="border rounded w-10 text-right" value={compPrefix} onInput={() => {setCompPrefix((document.getElementById("comp-prefix") as HTMLInputElement)?.value)}}></input>
+                            <input id="add-comp-prefix" type="text" name="comp-prefix" className="border rounded w-10 text-right" value={compPrefix} onInput={() => {setCompPrefix((document.getElementById("add-comp-prefix") as HTMLInputElement)?.value)}}></input>
                             {unit}
                         </div>
                     </div>
