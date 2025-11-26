@@ -4,7 +4,37 @@ import { pricePerQty } from "./functions.ts";
 
 function CompareBox({editMode, selectedItem}: {editMode: boolean, selectedItem: itemType | null}) {
     if (selectedItem === null || editMode) return <></>;
-    return <></>;
+
+    const [otherPrice, setOtherPrice] = useState<string>(String(selectedItem.storePrice));
+    const [otherQuantity, setOtherQuantity] = useState<string>(String(selectedItem.compQuantity));
+    const [otherPrefix, setOtherPrefix] = useState<string>(selectedItem.compPrefix);
+    
+    return (
+        <div className="text-2xl">
+            <div>
+                Price per quantity at {selectedItem.store}:
+            </div>
+            <div>
+                ${pricePerQty(selectedItem.storePrice, selectedItem.storeQuantity, selectedItem.storePrefix, selectedItem.compQuantity, selectedItem.compPrefix)} / {selectedItem.compQuantity}&nbsp;{selectedItem.compPrefix}{selectedItem.unit}
+            </div>
+
+            <br></br>
+
+            <div>Compare value</div>
+            <div>
+                $
+                <input id="other-price" type="text" name="other-price" className="border rounded w-20" value={otherPrice} onInput={() => {setOtherPrice((document.getElementById("other-price") as HTMLInputElement)?.value)}}></input>
+                &nbsp;@&nbsp;
+                <input id="other-quantity" type="text" name="other-quantity" className="border rounded w-20" value={otherQuantity} onInput={() => {setOtherQuantity((document.getElementById("other-quantity") as HTMLInputElement)?.value)}}></input>
+                &nbsp;
+                <input id="other-prefix" type="text" name="other-prefix" className="border rounded w-15 text-right" value={otherPrefix} onInput={() => {setOtherPrefix((document.getElementById("other-prefix") as HTMLInputElement)?.value)}}></input>
+                {selectedItem.unit}
+            </div>
+            <div>
+                = {pricePerQty(Number(otherPrice), Number(otherQuantity), otherPrefix, selectedItem.compQuantity, selectedItem.compPrefix)} / {selectedItem.compQuantity}&nbsp;{selectedItem.compPrefix}{selectedItem.unit}
+            </div>
+        </div>
+    );
 }
 
 function EditBox({editMode, selectedItem, items, setItems, setShowEditAndCompareBox}: {editMode: boolean, selectedItem: itemType | null, items: Array<itemType> | null, setItems: any, setShowEditAndCompareBox: any}) {
@@ -107,7 +137,7 @@ function EditBox({editMode, selectedItem, items, setItems, setShowEditAndCompare
                 <div>
                     $
                     <span>{pricePerQty(Number(storePrice), Number(storeQuantity), storePrefix, Number(compQuantity), compPrefix)}</span>
-                    /
+                    &nbsp;/&nbsp;
                     <input id="edit-comp-quantity" type="text" name="comp-quantity" className="border rounded w-10" value={compQuantity} onInput={() => {setCompQuantity((document.getElementById("edit-comp-quantity") as HTMLInputElement)?.value)}}></input>
                     &nbsp;
                     <input id="edit-comp-prefix" type="text" name="comp-prefix" className="border rounded w-10 text-right" value={compPrefix} onInput={() => {setCompPrefix((document.getElementById("edit-comp-prefix") as HTMLInputElement)?.value)}}></input>

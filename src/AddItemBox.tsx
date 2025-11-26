@@ -109,7 +109,7 @@ export default function AddItemBox({showAddItemBox, setShowAddItemBox, items, se
                         <div>
                             $
                             <span>{pricePerQty(Number(storePrice), Number(storeQuantity), storePrefix, Number(compQuantity), compPrefix)}</span>
-                            /
+                            &nbsp;/&nbsp;
                             <input id="add-comp-quantity" type="text" name="comp-quantity" className="border rounded w-10" value={compQuantity} onInput={() => {setCompQuantity((document.getElementById("add-comp-quantity") as HTMLInputElement)?.value)}}></input>
                             &nbsp;
                             <input id="add-comp-prefix" type="text" name="comp-prefix" className="border rounded w-10 text-right" value={compPrefix} onInput={() => {setCompPrefix((document.getElementById("add-comp-prefix") as HTMLInputElement)?.value)}}></input>
