@@ -4,7 +4,7 @@ import { pricePerQty } from "./functions.ts";
 export default function ItemsList({items, setItems, searchQuery, showEditAndCompare, setInvalidItem, selectedOnly, setSelectedOnly}: {items: Array<itemType> | null, setItems: (itemsArray: itemType[]) => void, searchQuery: string, showEditAndCompare: (item: itemType) => void, setInvalidItem: setState<boolean>, selectedOnly: boolean, setSelectedOnly: setState<boolean>}) {
     return (
         <div className="overflow-auto no-scrollbar h-[calc(100%-156px)]">
-            <table id="items-table" className="w-[calc(100%-8*var(--spacing))]">
+            <table id="items-table" className="w-99/100 m-auto">
                 <thead className="sticky border-b border-black">
                     <tr>
                         <th className="w-[30px] text-left"><input type="checkbox" checked={selectedOnly} onChange={() => setSelectedOnly(!selectedOnly)}></input></th>
