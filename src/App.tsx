@@ -33,10 +33,10 @@ export default function App() {
             <h1>Shopping List</h1>
             <Header setShowAddItemBox={setShowAddItemBox} setSearchQuery={setSearchQuery}/>
 
-            <ItemsList items={items} searchQuery={searchQuery} showEditAndCompare={showEditAndCompare}/>
+            <ItemsList items={items} setItems={setItemsAndUpdateLocalStorage} searchQuery={searchQuery} showEditAndCompare={showEditAndCompare}/>
 
             <AddItemBox showAddItemBox={showAddItemBox} setShowAddItemBox={setShowAddItemBox} items={items} setItems={setItemsAndUpdateLocalStorage}/>
-            <EditAndCompareBox selectedItem={selectedItem} items={items} setItems={setItems} showEditAndCompareBox={showEditAndCompareBox} setShowEditAndCompareBox={setShowEditAndCompareBox}/>
+            <EditAndCompareBox selectedItem={selectedItem} items={items} setItems={setItemsAndUpdateLocalStorage} showEditAndCompareBox={showEditAndCompareBox} setShowEditAndCompareBox={setShowEditAndCompareBox}/>
         </>
     )
 }

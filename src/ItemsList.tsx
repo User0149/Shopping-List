@@ -1,7 +1,7 @@
 import type { itemType } from "./types";
 import { pricePerQty } from "./functions.ts";
 
-export default function ItemsList({items, searchQuery, showEditAndCompare}: {items: Array<itemType> | null, searchQuery: string, showEditAndCompare: any}) {
+export default function ItemsList({items, setItems, searchQuery, showEditAndCompare}: {items: Array<itemType> | null, setItems: any, searchQuery: string, showEditAndCompare: any}) {
     return (
         <>
             <table id="items-table" className="w-[calc(100%-8*var(--spacing))]">
@@ -21,8 +21,17 @@ export default function ItemsList({items, searchQuery, showEditAndCompare}: {ite
                             return item.itemName.toLowerCase().includes(searchQuery);
                         }).map((item: itemType) => {
                             return (
-                                <tr key={item.itemName} className="cursor-pointer" onClick={() => showEditAndCompare(item)}>
-                                    <td>{Number(item.selected)}</td>
+                                <tr key={item.itemName} className="cursor-pointer" onClick={(event) => {
+                                    if ((event.target as HTMLElement).tagName !== "INPUT") {
+                                        showEditAndCompare(item);
+                                    }
+                                }}>
+                                    <td><input type="checkbox" checked={item.selected} onChange={() => {
+                                        setItems(items.map(i => ({
+                                            ...i,
+                                            selected: (item.itemName === i.itemName ? !i.selected : i.selected)
+                                        })));
+                                    }}></input></td>
                                     <td>{item.itemName}</td>
                                     <td>{"$" + pricePerQty(item.storePrice, item.storeQuantity, item.storePrefix, item.compQuantity, item.compPrefix) + " / " + String(item.compQuantity) + " " + String(item.compPrefix) + String(item.unit)}</td>
                                     <td>{item.store}</td>

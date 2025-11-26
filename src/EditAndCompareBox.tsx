@@ -49,9 +49,11 @@ function EditBox({editMode, selectedItem, items, setItems, setShowEditAndCompare
                 }
                 
                 if (!invalidNewItem) {
-                    items = items.filter((item) => (item.itemName !== selectedItem.itemName));
-                    items?.push(newItem);
-                    setItems(items);
+                    const newItems = items.filter((item) => (item.itemName !== selectedItem.itemName));
+                    newItems.push(newItem);
+                    newItems.sort((a, b) =>  Number(a.itemName.localeCompare(b.itemName)));
+
+                    setItems(newItems);
                     setShowEditAndCompareBox(false);
                 }
                 else {
@@ -119,10 +121,10 @@ function EditBox({editMode, selectedItem, items, setItems, setShowEditAndCompare
                 <input type="submit" className="border rounded p-2 mr-2 cursor-pointer bg-[#eeeeee] hover:bg-[lightgray]" value="Add item"></input>
                 <button className="border rounded p-2 cursor-pointer bg-red-400 hover:bg-red-600" onClick={() => {
                     if (items === null) return;
-                    items = items.filter((item) => (item.itemName !== selectedItem.itemName));
-                    setItems(items);
-                    setShowEditAndCompareBox(false);}
-                }>Remove item</button>
+                    const newItems = items.filter((item) => (item.itemName !== selectedItem.itemName));
+                    setItems(newItems);
+                    setShowEditAndCompareBox(false);
+                }}>Remove item</button>
             </div>
         </form>
     );

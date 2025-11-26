@@ -51,8 +51,11 @@ export default function AddItemBox({showAddItemBox, setShowAddItemBox, items, se
                         }
                         
                         if (!invalidNewItem) {
-                            items?.push(newItem);
-                            setItems(items);
+                            const newItems = [...items];
+                            newItems.push(newItem);
+                            newItems.sort((a, b) =>  Number(a.itemName.localeCompare(b.itemName)));
+
+                            setItems(newItems);
                             setShowAddItemBox(false);
                         }
                         else {
