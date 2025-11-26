@@ -8,13 +8,17 @@ function CompareBox({editMode, selectedItem}: {editMode: boolean, selectedItem: 
     const [otherPrefix, setOtherPrefix] = useState<string>(selectedItem!== null ? selectedItem.compPrefix : "");
     
     if (selectedItem === null || editMode) return <></>;
+
+    const storePricePerQty: number = Number(pricePerQty(selectedItem.storePrice, selectedItem.storeQuantity, selectedItem.storePrefix, selectedItem.compQuantity, selectedItem.compPrefix));
+    const otherPricePerQty: number = Number(pricePerQty(Number(otherPrice), Number(otherQuantity), otherPrefix, selectedItem.compQuantity, selectedItem.compPrefix));
+
     return (
         <div className="text-2xl">
             <div>
                 Price per quantity at {selectedItem.store}:
             </div>
             <div>
-                ${pricePerQty(selectedItem.storePrice, selectedItem.storeQuantity, selectedItem.storePrefix, selectedItem.compQuantity, selectedItem.compPrefix)} / {selectedItem.compQuantity}&nbsp;{selectedItem.compPrefix}{selectedItem.unit}
+                ${storePricePerQty} / {selectedItem.compQuantity}&nbsp;{selectedItem.compPrefix}{selectedItem.unit}
             </div>
 
             <br></br>
@@ -29,8 +33,8 @@ function CompareBox({editMode, selectedItem}: {editMode: boolean, selectedItem: 
                 <input id="other-prefix" type="text" name="other-prefix" className="border rounded w-15 text-right" value={otherPrefix} onInput={() => {setOtherPrefix((document.getElementById("other-prefix") as HTMLInputElement)?.value)}}></input>
                 {selectedItem.unit}
             </div>
-            <div>
-                = {pricePerQty(Number(otherPrice), Number(otherQuantity), otherPrefix, selectedItem.compQuantity, selectedItem.compPrefix)} / {selectedItem.compQuantity}&nbsp;{selectedItem.compPrefix}{selectedItem.unit}
+            <div className={otherPricePerQty < storePricePerQty ? "text-green-500" : (otherPricePerQty > storePricePerQty ? "text-red-500" : "text-yellow-500")}>
+                = {otherPricePerQty} / {selectedItem.compQuantity}&nbsp;{selectedItem.compPrefix}{selectedItem.unit}
             </div>
         </div>
     );
