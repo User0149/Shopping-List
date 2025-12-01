@@ -101,7 +101,7 @@ export default function AddItemBox() {
                             </div>
                             <div>
                                 <label htmlFor="add-unit">Base unit:&nbsp;</label>
-                                <input id="add-unit" type="text" name="unit" className="border rounded w-10" value={unit} onInput={() => {setUnit((document.getElementById("add-unit") as HTMLInputElement).value)}}></input>
+                                <input id="add-unit" type="text" name="unit" className="border rounded w-10" value={unit} onInput={(e) => {setUnit((e.target as HTMLInputElement).value)}}></input>
                             </div>
                         </div>
 
@@ -112,7 +112,7 @@ export default function AddItemBox() {
                                 <input id="add-store" type="text" name="store" className="border rounded"></input>
                             </div>
                             <div>
-                                <div className="font-bold">Price/quantity at store:&nbsp;</div>
+                                <div className="font-bold">Price/quantity at store</div>
                                 <div>
                                     $
                                     <input type="text" name="store-price" className="border rounded w-12" value={storePrice} onInput={(e) => {setStorePrice((e.target as HTMLInputElement).value)}}></input>

@@ -5,7 +5,7 @@ import UpdateItemContextProvider from "./context/UpdateItemContext";
 import Header from "./components/Header";
 import ItemsTable from "./components/ItemsTable/ItemsTable";
 import AddItemBox from "./components/AddItemBox";
-import CompareAndEditBox from "./components/CompareAndEdit";
+import CompareAndEditBox from "./components/CompareAndEditBox";
 import ContentContainer from "./components/ContentContainer";
 
 export default function App() {
