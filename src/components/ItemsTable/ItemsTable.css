@@ -5,3 +5,11 @@ table th, td{
 th {
     text-align: left;
 }
+
+tbody tr:nth-child(even) {
+    background-color: rgb(230, 230, 230);
+}
+
+tbody tr:hover {
+    background-color: lightgray;
+}

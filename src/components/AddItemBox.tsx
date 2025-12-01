@@ -75,7 +75,7 @@ export default function AddItemBox() {
 
     return (
         <ModalBox>
-            <h2>Add an item</h2>
+            <h2 className="text-center font-bold text-2xl">Add an item</h2>
             <form onSubmit={(e) => submitAddItemForm(e, setInvalidItem, items, setItemsAndUpdateLocalStorage, hideModals)}>
                 <div className="mb-1 text-lg font-bold">
                     <label htmlFor="add-item-name">Item name:&nbsp;</label>

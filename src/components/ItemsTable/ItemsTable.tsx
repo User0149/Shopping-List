@@ -113,17 +113,15 @@ export default function ItemsTable() {
     const { searchQuery } = useContext(SearchContext);
 
     return (
-        <div className="overflow-auto no-scrollbar h-[calc(100%-160px)]">
-            <SpaceY spacing={2}>
-                <table className="w-99/100 m-auto">
-                    <ItemsTableHead selectedOnly={selectedOnly} setSelectedOnly={setSelectedOnly} />
-                    <ItemsTableBody selectedOnly={selectedOnly} />
-                </table>
-                {
-                    (items === null || filterItems(items, searchQuery, selectedOnly).length === 0) && 
-                    <div className="text-center">No items found</div>
-                }
-            </SpaceY>
-        </div>
+        <SpaceY spacing={2}>
+            <table className="w-full m-auto">
+                <ItemsTableHead selectedOnly={selectedOnly} setSelectedOnly={setSelectedOnly} />
+                <ItemsTableBody selectedOnly={selectedOnly} />
+            </table>
+            {
+                (items === null || filterItems(items, searchQuery, selectedOnly).length === 0) && 
+                <div className="text-center">No items found</div>
+            }
+        </SpaceY>
     );
 }
