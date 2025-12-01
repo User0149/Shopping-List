@@ -5,7 +5,6 @@ import UpdateItemContextProvider from "./context/UpdateItemContext";
 import Header from "./components/Header";
 import ItemsTable from "./components/ItemsTable/ItemsTable";
 import AddItemBox from "./components/AddItemBox";
-import SpaceY from "./components/SpaceY";
 import CompareAndEditBox from "./components/CompareAndEdit";
 import ContentContainer from "./components/ContentContainer";
 
@@ -27,7 +26,7 @@ export default function App() {
                         <AddItemBox />
                         <CompareAndEditBox />
                     </ContentContainer>
-            </SearchContextProvider>
+                </SearchContextProvider>
             </UpdateItemContextProvider>
         </ItemsContextProvider>
     );
