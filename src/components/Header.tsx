@@ -8,7 +8,7 @@ function SearchBar() {
     const { setSearchQuery } = useContext(SearchContext);
 
     return (
-        <input className="search_bar block m-auto text-xl p-3" placeholder="Search for an item" onInput={(e) => {
+        <input className="w-9/10 rounded-full border block m-auto text-xl p-3" placeholder="Search for an item" onInput={(e) => {
             setSearchQuery((e.target as HTMLInputElement).value);
         }}></input>
     );

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import type { itemType, setState } from "../types/types";
 
@@ -8,6 +8,10 @@ import { ItemsContext } from "../context/ItemsContext";
 import { UpdateItemContext } from "../context/UpdateItemContext";
 
 import ModalBox from "./ModalBox";
+
+interface EditItemBoxProps {
+    showCompareAndEditBox: boolean;
+}
 
 function CompareItemBox() {
     const { selectedItem, showCompareItemBox } = useContext(UpdateItemContext);
@@ -95,11 +99,9 @@ const submitEditItemForm = (e: React.FormEvent<HTMLFormElement>, setInvalidItem:
     }
 };
 
-function EditItemBox() {
+function EditItemBox({ showCompareAndEditBox }: EditItemBoxProps) {
     const { items, setItemsAndUpdateLocalStorage } = useContext(ItemsContext);
     const { selectedItem, showEditItemBox, hideModals } = useContext(UpdateItemContext);
-
-    const [invalidItem, setInvalidItem] = useState<boolean>(false);
 
     const [itemName, setItemName] = useState<string>(selectedItem !== null ? selectedItem.itemName : "");
     const [selected, setSelected] = useState<boolean>(selectedItem !== null ? selectedItem.selected : false);
@@ -112,6 +114,30 @@ function EditItemBox() {
 
     const [compQuantity, setCompQuantity] = useState<string>(selectedItem !== null ? String(selectedItem.compQuantity) : "");
     const [compPrefix, setCompPrefix] = useState<string>(selectedItem !== null ? selectedItem.compPrefix : "");
+
+    const [invalidItem, setInvalidItem] = useState<boolean>(false);
+
+    const resetState = () => {
+        setItemName(selectedItem !== null ? selectedItem.itemName : "");
+        setSelected(selectedItem !== null ? selectedItem.selected : false);
+        setUnit(selectedItem !== null ? selectedItem.unit : "");
+
+        setStore(selectedItem !== null ? selectedItem.store : "");
+        setStorePrice(selectedItem !== null ? selectedItem.store : "");
+        setStoreQuantity(selectedItem !== null ? String(selectedItem.storeQuantity) : "");
+        setStorePrefix(selectedItem !== null ? selectedItem.storePrefix : "");
+
+        setCompQuantity(selectedItem !== null ? String(selectedItem.compQuantity) : "");
+        setCompPrefix(selectedItem !== null ? selectedItem.compPrefix : "");
+
+        setInvalidItem(false);
+    };
+
+    useEffect(() => {
+        if (!showCompareAndEditBox) {
+            resetState();
+        }
+    }, [showCompareAndEditBox]);
 
     if (selectedItem === null || items === null || !showEditItemBox) return <></>;
 
@@ -198,7 +224,7 @@ export default function CompareAndEditBox() {
             </div>
 
             <CompareItemBox />
-            <EditItemBox />
+            <EditItemBox showCompareAndEditBox={showCompareAndEditBox} />
         </ModalBox>
     );
 }

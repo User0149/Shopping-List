@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import type { itemType, setState } from "../types/types";
 import { pricePerQty } from "../utils/pricePerQty";
 import ModalBox from "./ModalBox";
@@ -54,6 +54,22 @@ export default function AddItemBox() {
 
     const [invalidItem, setInvalidItem] = useState<boolean>(false);
 
+    const resetState = () => {
+        setUnit("g");
+        setStorePrice("5");
+        setStoreQuantity("1");
+        setStorePrefix("k");
+        setCompQuantity("100");
+        setCompPrefix("");
+
+        setInvalidItem(false);
+    };
+
+    useEffect(() => {
+        if (!showAddItemBox) {
+            resetState();
+        }
+    }, [showAddItemBox]);
 
     if (!showAddItemBox || items === null) return <></>;
 

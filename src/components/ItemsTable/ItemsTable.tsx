@@ -64,7 +64,7 @@ function ItemsTableRow({ item }: ItemsTableRowProps) {
 
 function ItemsTableHead({ selectedOnly, setSelectedOnly }: ItemsTableHeadProps) {
     return (
-        <thead className="sticky border-b border-black">
+        <thead className="sticky top-0 z-1 bg-[white] border-b border-black">
             <tr>
                 <th className="w-[30px]">
                     <input type="checkbox" checked={selectedOnly} onChange={() => {
