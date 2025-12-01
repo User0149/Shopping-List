@@ -1,54 +1,18 @@
-.search_bar {
-    width: 90%;
-    border-radius: 100vh;
-    border: 1px solid black;
+h1, h2 {
+    text-align: center;
+    font-weight: bold;
 }
-
-.modal-background {
-    z-index: 1000;
-
-    position: fixed;
-    left: 0;
-    top: 0;
-
-    height: 100%;
-    width: 100%;
-
-    background-color: rgba(0, 0, 0, 0.75);
-}
-
-.modal-box {
-    z-index: 1001;
-
-    width: 75%;
-    
-    margin: auto;
-    margin-top: 30px;
-    padding: 15px;
-
-    background-color: white;
-}
-
-.modal-close-button:hover {
-    color: gray;
-}
-.modal-close-button {
-    float: right;
-    cursor: pointer;
+h1 {
     font-size: xx-large;
-    color: lightgray;
+}
+h2 {
+    font-size: x-large;
 }
 
-#items-table th, td{
-    padding: 5px;
-}
-.no-scrollbar::-webkit-scrollbar {
-    display: none;
+tbody tr:nth-child(even) {
+    background-color: rgb(230, 230, 230);
 }
 
-.sticky {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    background-color: white;
+tbody tr:hover {
+    background-color: lightgray;
 }
