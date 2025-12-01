@@ -66,21 +66,21 @@ function ItemsTableHead({ selectedOnly, setSelectedOnly }: ItemsTableHeadProps) 
     return (
         <thead className="sticky top-0 z-1 bg-[white] border-b border-black">
             <tr>
-                <th className="w-[30px]">
+                <th>
                     <input type="checkbox" checked={selectedOnly} onChange={() => {
                         setSelectedOnly(!selectedOnly);
                     }}></input>
                 </th>
-                <th className="w-[calc(0.8*(100%-530px))]">
+                <th>
                     Item
                 </th>
-                <th className="w-[250px]">
+                <th>
                     Value
                 </th>
-                <th className="w-[calc(0.2*(100%-530px))]">
+                <th>
                     Store
                 </th>
-                <th className="w-[250px]">
+                <th>
                     Price
                 </th>
             </tr>
@@ -114,7 +114,14 @@ export default function ItemsTable() {
 
     return (
         <SpaceY spacing={2}>
-            <table className="w-full m-auto">
+            <table className="table-fixed w-full">
+                <colgroup>
+                    <col className="w-[50px]"/>
+                    <col className="w-4/5"/>
+                    <col className="w-[250px]"/>
+                    <col className="w-1/5"/>
+                    <col className="w-[280px]"/>
+                </colgroup>
                 <ItemsTableHead selectedOnly={selectedOnly} setSelectedOnly={setSelectedOnly} />
                 <ItemsTableBody selectedOnly={selectedOnly} />
             </table>

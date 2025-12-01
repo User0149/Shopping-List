@@ -3,14 +3,17 @@ import "../styles/utilities.css";
 
 import { SearchContext } from "../context/SearchContext";
 import { UpdateItemContext } from "../context/UpdateItemContext";
+import SpaceY from "./SpaceY";
 
 function SearchBar() {
     const { setSearchQuery } = useContext(SearchContext);
 
     return (
-        <input className="w-9/10 rounded-full border block m-auto text-xl p-3" placeholder="Search for an item" onInput={(e) => {
-            setSearchQuery((e.target as HTMLInputElement).value);
-        }}></input>
+        <div>
+            <input name="search-bar" className="w-9/10 rounded-full border block m-auto text-xl p-3" placeholder="Search for an item" onInput={(e) => {
+                setSearchQuery((e.target as HTMLInputElement).value);
+            }}></input>
+        </div>
     );
 }
 
@@ -28,9 +31,9 @@ function AddItemButton() {
 
 export default function Header() {
     return (
-        <>
+        <SpaceY spacing={5}>
             <SearchBar />
             <AddItemButton />
-        </>
+        </SpaceY>
     );
 }
