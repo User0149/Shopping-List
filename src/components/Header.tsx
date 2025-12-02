@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import "../styles/utilities.css";
 
 import { SearchContext } from "../context/SearchContext";
 import { UpdateItemContext } from "../context/UpdateItemContext";
