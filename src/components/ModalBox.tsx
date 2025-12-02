@@ -8,13 +8,11 @@ interface ModalBoxProps {
 export default function ModalBox({ children }: ModalBoxProps) {
     const { hideModals } = useContext(UpdateItemContext);
     return (
-        <div className="modal-background" onClick={() => {
-            hideModals();
-        }}>
+        <div className="modal-background" onClick={hideModals}>
             <div className="modal-box" onClick={(e) => {
                 e.stopPropagation();
             }}>
-                <span className="modal-close-button" onClick={() => hideModals()}>&times;</span>
+                <span className="modal-close-button" onClick={hideModals}>&times;</span>
                 {children}
             </div>
         </div>
