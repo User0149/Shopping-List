@@ -18,7 +18,7 @@ export default function App() {
                             <h1 className="text-center font-bold text-4xl">Shopping List</h1>
                             <Header />
 
-                            <div className="flex-1 overflow-auto no-scrollbar min-w-0">
+                            <div className="flex-1 overflow-auto no-scrollbar">
                                 <ItemsTable />
                             </div>
                         </div>
