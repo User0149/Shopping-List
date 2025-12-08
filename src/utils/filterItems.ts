@@ -1,11 +1,11 @@
-import type { itemType } from "../types/types";
+import type { Item } from "../types/types";
 
-export function filterItems(items: Array<itemType>, searchQuery: string, selectedOnly: boolean) {
+export function filterItems(items: Array<Item>, searchQuery: string, selectedOnly: boolean) {
     return (
         items.filter((item) => {
             return item.itemName.toLowerCase().includes(searchQuery.toLowerCase());
         })
-        .filter((item: itemType) => {
+        .filter((item: Item) => {
             return !selectedOnly || item.selected;
         })
     );

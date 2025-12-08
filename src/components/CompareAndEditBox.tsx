@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 
-import type { itemType, setState } from "../types/types";
+import type { Item, StateSetter } from "../types/types";
 
 import { pricePerQty } from "../utils/pricePerQty";
 
@@ -71,12 +71,12 @@ function CompareItemBox() {
     );
 }
 
-const submitEditItemForm = (e: React.FormEvent<HTMLFormElement>, setInvalidItem: setState<boolean>, items: Array<itemType>, setItemsAndUpdateLocalStorage: (itemsArray: Array<itemType>) => void, selectedItem: itemType, hideModals: () => void) => {
+const submitEditItemForm = (e: React.FormEvent<HTMLFormElement>, setInvalidItem: StateSetter<boolean>, items: Array<Item>, setItemsAndUpdateLocalStorage: (itemsArray: Array<Item>) => void, selectedItem: Item, hideModals: () => void) => {
     e.preventDefault();
     const form: HTMLFormElement = e.target as HTMLFormElement;
     const formData = Object.fromEntries(new FormData(form as HTMLFormElement).entries());
     
-    const newItem: itemType = {
+    const newItem: Item = {
         itemName: formData["item-name"] as string,
         selected: formData["selected"] ? true : false,
         store: formData["store"] as string,

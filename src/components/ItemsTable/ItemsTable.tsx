@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import "./ItemsTable.css";
 
-import type { itemType, setState } from "../../types/types";
+import type { Item, StateSetter } from "../../types/types";
 
 import { filterItems } from "../../utils/filterItems";
 import { pricePerQty } from "../../utils/pricePerQty";
@@ -13,12 +13,12 @@ import { UpdateItemContext } from "../../context/UpdateItemContext";
 import SpaceY from "../SpaceY";
 
 interface ItemsTableRowProps{
-    item: itemType;
+    item: Item;
 }
 
 interface ItemsTableHeadProps {
     selectedOnly: boolean;
-    setSelectedOnly: setState<boolean>;
+    setSelectedOnly: StateSetter<boolean>;
 }
 
 interface ItemsTableBodyProps {
@@ -98,7 +98,7 @@ function ItemsTableBody({ selectedOnly }: ItemsTableBodyProps) {
     return (
         <tbody>
             {
-                matchingItems.map((item: itemType) => {
+                matchingItems.map((item: Item) => {
                     return <ItemsTableRow key={item.itemName} item={item} />;
                 })
             }                

@@ -1,8 +1,8 @@
-export type setState<T> = React.Dispatch<React.SetStateAction<T>>;
+export type StateSetter<T> = React.Dispatch<React.SetStateAction<T>>;
 
-export type prefixType = "m" | "c" | "d" | "" | "k";
+export type Prefix = "m" | "c" | "d" | "" | "k";
 
-export type itemType = {
+export type Item = {
     selected: boolean;
     itemName: string;
     unit: string;
@@ -17,17 +17,17 @@ export type itemType = {
 };
 
 export interface IItemsContext {
-    items: Array<itemType> | null;
-    setItemsAndUpdateLocalStorage: (itemsArray: Array<itemType>) => void;
+    items: Array<Item> | null;
+    setItemsAndUpdateLocalStorage: (itemsArray: Array<Item>) => void;
 }
 
 export interface ISearchContext {
     searchQuery: string;
-    setSearchQuery: setState<string>;
+    setSearchQuery: StateSetter<string>;
 }
 
 export interface IUpdateItemContext {
-    selectedItem: itemType | null;
+    selectedItem: Item | null;
 
     showAddItemBox: boolean;
     showCompareAndEditBox: boolean;
@@ -35,7 +35,7 @@ export interface IUpdateItemContext {
     showCompareItemBox: boolean;
     
     addItem: () => void;
-    compareItem: (item: itemType) => void;
-    editItem: (item: itemType) => void;
+    compareItem: (item: Item) => void;
+    editItem: (item: Item) => void;
     hideModals: () => void;
 }

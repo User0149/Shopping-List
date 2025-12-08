@@ -1,5 +1,5 @@
 import { createContext, useState, type ReactNode } from "react";
-import type { IItemsContext, itemType } from "../types/types";
+import type { IItemsContext, Item } from "../types/types";
 
 export const ItemsContext = createContext<IItemsContext>({
     items: null,
@@ -11,9 +11,9 @@ interface ItemsContextProviderProps {
 }
 
 export default function ItemsContextProvider({ children }: ItemsContextProviderProps) {
-    const [items, setItems] = useState<Array<itemType> | null>(localStorage.getItem("items") ? JSON.parse(localStorage.getItem("items") as string) : null);
+    const [items, setItems] = useState<Array<Item> | null>(localStorage.getItem("items") ? JSON.parse(localStorage.getItem("items") as string) : null);
 
-    const setItemsAndUpdateLocalStorage = (itemsArray: Array<itemType>) => {
+    const setItemsAndUpdateLocalStorage = (itemsArray: Array<Item>) => {
         localStorage.setItem("items", JSON.stringify(itemsArray));
         setItems(itemsArray);
     };

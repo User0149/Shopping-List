@@ -1,5 +1,5 @@
 import { createContext, useState, type ReactNode } from "react";
-import type { itemType, IUpdateItemContext } from "../types/types";
+import type { Item, IUpdateItemContext } from "../types/types";
 
 export const UpdateItemContext = createContext<IUpdateItemContext>({
     selectedItem: null,
@@ -22,7 +22,7 @@ interface UpdateItemContextProviderProps {
 export default function UpdateItemContextProvider({ children }: UpdateItemContextProviderProps) {
     const [showAddItemBox, setShowAddItemBox] = useState<boolean>(false);
     const [showCompareAndEditBox, setShowCompareAndEditBox] = useState<boolean>(false);
-    const [selectedItem, setSelectedItem] = useState<itemType | null>(null);
+    const [selectedItem, setSelectedItem] = useState<Item | null>(null);
 
     const [showCompareItemBox, setShowCompareItemBox] = useState<boolean>(true);
     const [showEditItemBox, setShowEditItemBox] = useState<boolean>(false);
@@ -31,7 +31,7 @@ export default function UpdateItemContextProvider({ children }: UpdateItemContex
         setShowAddItemBox(true);
     }
 
-    const compareItem = (item: itemType) => {
+    const compareItem = (item: Item) => {
         setSelectedItem(item);
         setShowCompareItemBox(true);
         setShowEditItemBox(false);
@@ -39,7 +39,7 @@ export default function UpdateItemContextProvider({ children }: UpdateItemContex
         setShowCompareAndEditBox(true);
     }
 
-    const editItem = (item: itemType) => {
+    const editItem = (item: Item) => {
         setSelectedItem(item);
         setShowCompareItemBox(false);
         setShowEditItemBox(true);
