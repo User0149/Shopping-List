@@ -3,6 +3,8 @@ import SearchContextProvider from "./context/SearchContext";
 import UpdateItemContextProvider from "./context/UpdateItemContext";
 
 import Header from "./components/Header";
+import SearchBar from "./components/SearchBar";
+import AddItemButton from "./components/AddItemButton";
 import ItemsTable from "./components/ItemsTable/ItemsTable";
 import AddItemBox from "./components/AddItemBox";
 import CompareAndEditBox from "./components/CompareAndEditBox";
@@ -15,8 +17,9 @@ export default function App() {
                 <SearchContextProvider>
                     <ContentContainer>
                         <div className="flex flex-col h-full space-y-5">
-                            <h1 className="text-center font-bold text-4xl">Shopping List</h1>
                             <Header />
+                            <SearchBar />
+                            <AddItemButton />
 
                             <div className="flex-1 overflow-auto no-scrollbar">
                                 <ItemsTable />
