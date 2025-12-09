@@ -4,6 +4,7 @@ import type { Item, StateSetter } from "../types/types";
 
 import { pricePerQty } from "../utils/pricePerQty";
 
+import { ModalsContext } from "../context/ModalsContext";
 import { ItemsContext } from "../context/ItemsContext";
 import { UpdateItemContext } from "../context/UpdateItemContext";
 
@@ -106,7 +107,8 @@ const submitEditItemForm = (e: React.FormEvent<HTMLFormElement>, setInvalidItem:
 
 function EditItemBox({ showCompareAndEditBox }: EditItemBoxProps) {
     const { items, setItemsAndUpdateLocalStorage } = useContext(ItemsContext);
-    const { selectedItem, showEditItemBox, hideModals } = useContext(UpdateItemContext);
+    const { selectedItem, showEditItemBox } = useContext(UpdateItemContext);
+    const { hideModals } = useContext(ModalsContext);
 
     const [itemName, setItemName] = useState<string>(selectedItem !== null ? selectedItem.itemName : "");
     const [selected, setSelected] = useState<boolean>(selectedItem !== null ? selectedItem.selected : false);
@@ -224,7 +226,8 @@ function EditItemBox({ showCompareAndEditBox }: EditItemBoxProps) {
 }
 
 export default function CompareAndEditBox() {
-    const { selectedItem, showCompareAndEditBox, showEditItemBox, showCompareItemBox , editItem, compareItem} = useContext(UpdateItemContext);
+    const { showCompareAndEditBox } = useContext(ModalsContext);
+    const { selectedItem, showEditItemBox, showCompareItemBox , editItem, compareItem} = useContext(UpdateItemContext);
 
     if (!showCompareAndEditBox || !selectedItem) return <></>;
 

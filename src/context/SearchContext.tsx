@@ -1,14 +1,19 @@
 import { createContext, useState, type ReactNode } from "react";
-import type { ISearchContext } from "../types/types";
+import type { StateSetter } from "../types/types";
+
+interface ISearchContext {
+    searchQuery: string;
+    setSearchQuery: StateSetter<string>;
+}
+
+interface SearchContextProviderProps {
+    children: ReactNode;
+}
 
 export const SearchContext = createContext<ISearchContext>({
     searchQuery: "",
     setSearchQuery: () => {}
 });
-
-interface SearchContextProviderProps {
-    children: ReactNode;
-}
 
 export default function SearchContextProvider({ children }: SearchContextProviderProps) {
     const [searchQuery, setSearchQuery] = useState<string>("");

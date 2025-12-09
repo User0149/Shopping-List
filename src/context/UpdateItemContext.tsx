@@ -1,27 +1,36 @@
-import { createContext, useState, type ReactNode } from "react";
-import type { Item, IUpdateItemContext } from "../types/types";
+import { createContext, useContext, useState, type ReactNode } from "react";
+import type { Item } from "../types/types";
+import { ModalsContext } from "./ModalsContext";
 
-export const UpdateItemContext = createContext<IUpdateItemContext>({
-    selectedItem: null,
+interface IUpdateItemContext {
+    selectedItem: Item | null;
 
-    showAddItemBox: false,
-    showCompareAndEditBox: false,
-    showEditItemBox: false,
-    showCompareItemBox: false,
-
-    addItem: () => {},
-    compareItem: () => {},
-    editItem: () => {},
-    hideModals: () => {}
-});
+    showEditItemBox: boolean;
+    showCompareItemBox: boolean;
+    
+    addItem: () => void;
+    compareItem: (item: Item) => void;
+    editItem: (item: Item) => void;
+}
 
 interface UpdateItemContextProviderProps {
     children: ReactNode;
 }
 
+export const UpdateItemContext = createContext<IUpdateItemContext>({
+    selectedItem: null,
+
+    showEditItemBox: false,
+    showCompareItemBox: false,
+
+    addItem: () => {},
+    compareItem: () => {},
+    editItem: () => {}
+});
+
 export default function UpdateItemContextProvider({ children }: UpdateItemContextProviderProps) {
-    const [showAddItemBox, setShowAddItemBox] = useState<boolean>(false);
-    const [showCompareAndEditBox, setShowCompareAndEditBox] = useState<boolean>(false);
+    const { setShowAddItemBox, setShowCompareAndEditBox } = useContext(ModalsContext);
+
     const [selectedItem, setSelectedItem] = useState<Item | null>(null);
 
     const [showCompareItemBox, setShowCompareItemBox] = useState<boolean>(true);
@@ -47,23 +56,15 @@ export default function UpdateItemContextProvider({ children }: UpdateItemContex
         setShowCompareAndEditBox(true);
     }
 
-    const hideModals = () => {
-        setShowAddItemBox(false);
-        setShowCompareAndEditBox(false);
-    }
-
     const initialUpdateItemContext: IUpdateItemContext = {
         selectedItem,
 
-        showAddItemBox,
-        showCompareAndEditBox,
         showEditItemBox,
         showCompareItemBox,
 
         addItem,
         compareItem,
-        editItem,
-        hideModals
+        editItem
     };
 
     return (

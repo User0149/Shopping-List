@@ -1,10 +1,14 @@
 import { useContext, useEffect, useState } from "react";
+
 import type { Item, StateSetter } from "../types/types";
+
 import { pricePerQty } from "../utils/pricePerQty";
-import ModalBox from "./ModalBox";
-import { UpdateItemContext } from "../context/UpdateItemContext";
+
 import { ItemsContext } from "../context/ItemsContext";
+import { ModalsContext } from "../context/ModalsContext";
+
 import SpaceY from "./SpaceY";
+import ModalBox from "./ModalBox";
 
 const submitAddItemForm = (e: React.FormEvent<HTMLFormElement>, setInvalidItem: StateSetter<boolean>, items: Array<Item>, setItemsAndUpdateLocalStorage: (itemsArray: Array<Item>) => void, hideModals: () => void) => {    
     e.preventDefault();
@@ -44,7 +48,7 @@ const submitAddItemForm = (e: React.FormEvent<HTMLFormElement>, setInvalidItem: 
 
 export default function AddItemBox() {
     const { items, setItemsAndUpdateLocalStorage } = useContext(ItemsContext);
-    const { showAddItemBox, hideModals } = useContext(UpdateItemContext);
+    const { showAddItemBox, hideModals } = useContext(ModalsContext);
 
     const [unit, setUnit] = useState<string>("g");
     const [storePrice, setStorePrice] = useState<string>("5");

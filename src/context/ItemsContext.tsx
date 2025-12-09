@@ -1,14 +1,19 @@
 import { createContext, useState, type ReactNode } from "react";
-import type { IItemsContext, Item } from "../types/types";
+import type { Item } from "../types/types";
+
+interface IItemsContext {
+    items: Array<Item> | null;
+    setItemsAndUpdateLocalStorage: (itemsArray: Array<Item>) => void;
+}
+
+interface ItemsContextProviderProps {
+    children: ReactNode;
+}
 
 export const ItemsContext = createContext<IItemsContext>({
     items: null,
     setItemsAndUpdateLocalStorage: () => {}
 });
-
-interface ItemsContextProviderProps {
-    children: ReactNode;
-}
 
 export default function ItemsContextProvider({ children }: ItemsContextProviderProps) {
     const [items, setItems] = useState<Array<Item> | null>(localStorage.getItem("items") ? JSON.parse(localStorage.getItem("items") as string) : null);
