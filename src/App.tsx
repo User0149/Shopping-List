@@ -1,6 +1,4 @@
-import ItemsContextProvider from "./context/ItemsContext";
-import SearchContextProvider from "./context/SearchContext";
-import UpdateItemContextProvider from "./context/UpdateItemContext";
+import ContextProviders from "./context/ContextProviders";
 
 import ContentContainer from "./components/ContentContainer";
 import Header from "./components/Header";
@@ -10,7 +8,6 @@ import ItemsTable from "./components/ItemsTable/ItemsTable";
 import AddItemBox from "./components/AddItemBox";
 import CompareAndEditBox from "./components/CompareAndEditBox";
 import SettingsBox from "./components/SettingsBox";
-import ContextProviders from "./context/ContextProviders";
 
 export default function App() {
     return (
