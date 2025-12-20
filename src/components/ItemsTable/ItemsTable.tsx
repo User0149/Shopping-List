@@ -117,10 +117,10 @@ export default function ItemsTable() {
             <table className="table-fixed w-full">
                 <colgroup>
                     <col className="w-[50px]"/>
-                    <col className="w-4/5"/>
-                    <col className="w-[250px]"/>
-                    <col className="w-1/5"/>
-                    <col className="w-[280px]"/>
+                    <col className="w-3/8"/>
+                    <col className="w-1/8"/>
+                    <col className="w-3/8"/>
+                    <col className="w-1/8"/>
                 </colgroup>
                 <ItemsTableHead selectedOnly={selectedOnly} setSelectedOnly={setSelectedOnly} />
                 <ItemsTableBody selectedOnly={selectedOnly} />
