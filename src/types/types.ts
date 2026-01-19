@@ -2,7 +2,7 @@ export type StateSetter<T> = React.Dispatch<React.SetStateAction<T>>;
 
 export type Prefix = "m" | "c" | "d" | "" | "k";
 
-export type Item = {
+export interface Item {
     selected: boolean;
     itemName: string;
     unit: string;
@@ -14,4 +14,4 @@ export type Item = {
     
     compPrefix: string;
     compQuantity: number;
-};
+}
