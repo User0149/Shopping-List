@@ -1,8 +1,11 @@
-import { createContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+
 import type { Item } from "../types/types";
 
+import { SettingsContext } from "./SettingsContext";
+
 interface IItemsContext {
-    items: Array<Item> | null;
+    items: Array<Item>;
     setItemsAndUpdateLocalStorage: (itemsArray: Array<Item>) => void;
 }
 
@@ -11,20 +14,23 @@ interface ItemsContextProviderProps {
 }
 
 export const ItemsContext = createContext<IItemsContext>({
-    items: null,
+    items: [],
     setItemsAndUpdateLocalStorage: () => {}
 });
 
 export default function ItemsContextProvider({ children }: ItemsContextProviderProps) {
-    const [items, setItems] = useState<Array<Item> | null>(localStorage.getItem("items") ? JSON.parse(localStorage.getItem("items") as string) : null);
+    const { itemsCookie, setItemsCookieAndUpdateLocalStorage } = useContext(SettingsContext);
+
+    const [items, setItems] = useState<Array<Item>>(JSON.parse(itemsCookie));
+
+    useEffect(() => {
+        setItems(JSON.parse(itemsCookie));
+    }, [itemsCookie]);
 
     const setItemsAndUpdateLocalStorage = (itemsArray: Array<Item>) => {
-        localStorage.setItem("items", JSON.stringify(itemsArray));
         setItems(itemsArray);
+        setItemsCookieAndUpdateLocalStorage(JSON.stringify(itemsArray));
     };
-    if (items === null) {
-        setItemsAndUpdateLocalStorage([]);
-    }
 
     const initialItemsContext: IItemsContext = {
         items,

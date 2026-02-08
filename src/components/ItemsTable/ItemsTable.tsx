@@ -29,9 +29,6 @@ function ItemsTableRow({ item }: ItemsTableRowProps) {
     const { items , setItemsAndUpdateLocalStorage} = useContext(ItemsContext);
     const { compareItem } = useContext(UpdateItemContext);
 
-    // this function should never be called if `items` is null
-    if (items === null) return <></>;
-
     return (
         <tr className="cursor-pointer" onClick={(event) => {
             if ((event.target as HTMLElement).tagName !== "INPUT") {
@@ -91,8 +88,6 @@ function ItemsTableHead({ selectedOnly, setSelectedOnly }: ItemsTableHeadProps) 
 function ItemsTableBody({ selectedOnly }: ItemsTableBodyProps) {
     const { items } = useContext(ItemsContext);
     const { searchQuery } = useContext(SearchContext);
-
-    if (items === null) return <></>;
 
     const matchingItems = filterItems(items, searchQuery, selectedOnly);
     return (

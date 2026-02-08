@@ -212,7 +212,7 @@ function EditItemBox({ showCompareAndEditBox }: EditItemBoxProps) {
 
                 {/* Action buttons */}
                 <div className="flex space-x-2">
-                    <input type="submit" className="border rounded p-2 cursor-pointer bg-[#eeeeee] hover:bg-[lightgray]" value="Confirm changes"></input>
+                    <input type="submit" className="border rounded p-2 cursor-pointer bg-[#eeeeee] hover:bg-[lightgray]" value="Apply changes"></input>
 
                     <button className="border rounded p-2 cursor-pointer bg-red-400 hover:bg-red-600" onClick={() => {
                         const newItems = items.filter((item) => (item.itemName !== selectedItem.itemName));
