@@ -7,7 +7,7 @@ export default function SearchBar() {
 
     return (
         <div>
-            <input name="search-bar" className="w-9/10 rounded-full border block m-auto text-xl p-3" placeholder="Search for an item" onInput={(e) => {
+            <input name="search-bar" className="w-9/10 rounded-full border block m-auto text-base sm:text-xl p-3" placeholder="Search for an item" onInput={(e) => {
                 setSearchQuery((e.target as HTMLInputElement).value);
             }}></input>
         </div>

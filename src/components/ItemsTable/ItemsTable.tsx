@@ -29,6 +29,11 @@ function ItemsTableRow({ item }: ItemsTableRowProps) {
     const { items , setItemsAndUpdateLocalStorage} = useContext(ItemsContext);
     const { compareItem } = useContext(UpdateItemContext);
 
+    const itemName = item.itemName;
+    const itemValue = "$" + pricePerQty(item.storePrice, item.storeQuantity, item.storePrefix, item.compQuantity, item.compPrefix) + " / " + String(item.compQuantity) + " " + String(item.compPrefix) + String(item.unit);
+    const itemStore = item.store;
+    const itemPrice = "$" + item.storePrice.toFixed(2) + " @ " + String(item.storeQuantity) + " " + String(item.storePrefix) + String(item.unit);
+
     return (
         <tr className="cursor-pointer" onClick={(event) => {
             if ((event.target as HTMLElement).tagName !== "INPUT") {
@@ -43,17 +48,24 @@ function ItemsTableRow({ item }: ItemsTableRowProps) {
                     })));
                 }}></input>
             </td>
-            <td>
-                {item.itemName}
+
+            {/* Mobile cell */}
+            <td className="table-cell sm:hidden">
+                {itemName}&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;{itemValue}&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;{itemStore}&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;{itemPrice}
             </td>
-            <td>
-                {"$" + pricePerQty(item.storePrice, item.storeQuantity, item.storePrefix, item.compQuantity, item.compPrefix) + " / " + String(item.compQuantity) + " " + String(item.compPrefix) + String(item.unit)}
-                </td>
-            <td>
-                {item.store}
-                </td>
-            <td>
-                {"$" + item.storePrice.toFixed(2) + " @ " + String(item.storeQuantity) + " " + String(item.storePrefix) + String(item.unit)}
+
+            {/* Desktop cells */}
+            <td className="hidden sm:table-cell">
+                {itemName}
+            </td>
+            <td className="hidden sm:table-cell">
+                {itemValue}
+            </td>
+            <td className="hidden sm:table-cell">
+                {itemStore}
+            </td>
+            <td className="hidden sm:table-cell">
+                {itemPrice}
             </td>
         </tr>
     );
@@ -68,16 +80,23 @@ function ItemsTableHead({ selectedOnly, setSelectedOnly }: ItemsTableHeadProps) 
                         setSelectedOnly(!selectedOnly);
                     }}></input>
                 </th>
-                <th>
+
+                {/* Mobile header */}
+                <th className="table-cell sm:hidden">
+                    Item&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;Value&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;Store&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;Price
+                </th>
+
+                {/* Desktop headers */}
+                <th className="hidden sm:table-cell">
                     Item
                 </th>
-                <th>
+                <th className="hidden sm:table-cell">
                     Value
                 </th>
-                <th>
+                <th className="hidden sm:table-cell">
                     Store
                 </th>
-                <th>
+                <th className="hidden sm:table-cell">
                     Price
                 </th>
             </tr>
@@ -109,9 +128,20 @@ export default function ItemsTable() {
 
     return (
         <SpaceY spacing={2}>
-            <table className="table-fixed w-full">
+            {/* Table for mobile screens */}
+            <table className="table-fixed w-full table sm:hidden text-sm sm:text-base">
                 <colgroup>
-                    <col className="w-[50px]"/>
+                    <col className="w-[25px]"/>
+                    <col className="w-full"/>
+                </colgroup>
+                <ItemsTableHead selectedOnly={selectedOnly} setSelectedOnly={setSelectedOnly} />
+                <ItemsTableBody selectedOnly={selectedOnly} />
+            </table>
+
+            {/* Table for larger screens */}
+            <table className="table-fixed w-full hidden sm:table">
+                <colgroup>
+                    <col className="w-[25px]"/>
                     <col className="w-3/8"/>
                     <col className="w-1/8"/>
                     <col className="w-3/8"/>
@@ -120,8 +150,10 @@ export default function ItemsTable() {
                 <ItemsTableHead selectedOnly={selectedOnly} setSelectedOnly={setSelectedOnly} />
                 <ItemsTableBody selectedOnly={selectedOnly} />
             </table>
+
+            {/* No items matched the search */}
             {
-                (items === null || filterItems(items, searchQuery, selectedOnly).length === 0) && 
+                (filterItems(items, searchQuery, selectedOnly).length === 0) && 
                 <div className="text-center">No items found</div>
             }
         </SpaceY>
