@@ -53,8 +53,8 @@ export default function AddItemBox() {
     const [unit, setUnit] = useState<string>("g");
     const [storePrice, setStorePrice] = useState<string>("5");
     const [storeQuantity, setStoreQuantity] = useState<string>("1");
-    const [storePrefix, setStorePrefix] = useState<string>("k");
-    const [compQuantity, setCompQuantity] = useState<string>("100");
+    const [storePrefix, setStorePrefix] = useState<string>("");
+    const [compQuantity, setCompQuantity] = useState<string>("1");
     const [compPrefix, setCompPrefix] = useState<string>("");
 
     const [invalidItem, setInvalidItem] = useState<boolean>(false);
@@ -63,8 +63,8 @@ export default function AddItemBox() {
         setUnit("g");
         setStorePrice("5");
         setStoreQuantity("1");
-        setStorePrefix("k");
-        setCompQuantity("100");
+        setStorePrefix("");
+        setCompQuantity("1");
         setCompPrefix("");
 
         setInvalidItem(false);
